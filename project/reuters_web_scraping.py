@@ -29,7 +29,11 @@ def get_articles_from_reuters(page_number):
 
 # Main
 if __name__ == '__main__':
+
     articlesData = {'title': [], 'summary': [], 'time': []}
+
+    # This range can be adjusted to increase/decrease no of new articles.
+    # 20 is chosen to nullify and new UI changes.
     for i in range(20, 2000):
         articles = get_articles_from_reuters(i)
         for article in articles:
@@ -38,5 +42,5 @@ if __name__ == '__main__':
             articlesData['summary'].append(article.get("summary", "none"))
             articlesData['time'].append(article.get("time", "none"))
     data = pd.DataFrame(articlesData)
-    data.to_csv(r'Articles.csv', index=False)
+    data.to_csv(r'news_articles.csv', index=False)
     print('Success')

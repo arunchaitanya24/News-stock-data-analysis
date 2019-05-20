@@ -78,4 +78,5 @@ with open('sample_articles_ent.csv', 'w+') as output_file:
     dict_writer = csv.DictWriter(output_file, keys)
     dict_writer.writeheader()
     dict_writer.writerows(entity_named_articles)
+    print('Success')
 
