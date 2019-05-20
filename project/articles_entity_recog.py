@@ -25,11 +25,6 @@ def filter_entities_data(tups):
     return entities
 
 
-# # Importing Csv to check data attributes
-# df = pd.read_csv('sample.csv')
-# # Display first 5 rows of your data
-# df.head()
-
 # Fetches articles from `.csv` and returns an `order dictionary list`
 def get_articles():
     with open('sample.csv', newline='') as csvfile:
