@@ -5,6 +5,7 @@ import requests
 from requests.compat import urljoin
 import urllib
 
+
 # Cleaning the string
 def clean_article(article):
     return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) |(\w+:\/\/\S+)", " ", article).split())
