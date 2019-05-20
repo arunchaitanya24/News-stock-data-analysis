@@ -17,7 +17,7 @@ def perform_ner(data):
 
 
 # Filtering out organisation from entities
-def filterData(tups):
+def filter_entities_data(tups):
     org_ent_data = list(filter(lambda tup: "ORG" in tup, tups))
     entities = []
     for ent in org_ent_data:
@@ -32,20 +32,20 @@ def filterData(tups):
 
 # Fetches articles from `.csv` and returns an `order dictionary list`
 def get_articles():
-    with open('Articles.csv', newline='') as csvfile:
-        articlesData = csv.DictReader(csvfile)
-        articlesList = []
-        for article in articlesData:
-            articlesList.append(article)
-    return articlesList
+    with open('sample.csv', newline='') as csvfile:
+        articles_data = csv.DictReader(csvfile)
+        articles_list = []
+        for article in articles_data:
+            articles_list.append(article)
+    return articles_list
 
 
-def getEntityIdentifiedArticles():
+def perform_ner_articles():
     # Get articles list
     articles = get_articles()
 
     # An array of entity recognised articles.
-    entityNamedArticles = []
+    entity_articles = []
     i = 0
     # Looping articles for NER
     for article in articles:
@@ -58,24 +58,24 @@ def getEntityIdentifiedArticles():
         label_ner_data = perform_ner(summary)
 
         # Filter Organization labeled data
-        org_flt_data = filterData(label_ner_data)
+        org_flt_data = filter_entities_data(label_ner_data)
 
         # Checks if array of entity is empty
         if org_flt_data:
             article["ents"] = ",".join(org_flt_data)
-            entityNamedArticles.append(article)
+            entity_articles.append(article)
 
-    return entityNamedArticles
+    return entity_articles
 
 
 # Main
 
-entityListed_Articles = getEntityIdentifiedArticles()
+entity_named_articles = perform_ner_articles()
 # Get Keys to est header to csv
-keys = entityListed_Articles[0].keys()
+keys = entity_named_articles[0].keys()
 # Create a new csv with entity list
-with open('Articles_ent.csv', 'w+') as output_file:
+with open('sample_articles_ent.csv', 'w+') as output_file:
     dict_writer = csv.DictWriter(output_file, keys)
     dict_writer.writeheader()
-    dict_writer.writerows(entityListed_Articles)
+    dict_writer.writerows(entity_named_articles)
 

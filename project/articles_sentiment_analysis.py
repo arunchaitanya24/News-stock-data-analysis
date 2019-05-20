@@ -73,7 +73,7 @@ def get_stock_name_for_company(entity):
 
 # get articles from `.csv` and returns an `order dictionary list`.
 def get_articles():
-    with open('sample_ent.csv', newline='') as csvfile:
+    with open('sample_articles_ent.csv', newline='') as csvfile:
         articles_data = csv.DictReader(csvfile)
         articles_list = []
         for article in articles_data:
