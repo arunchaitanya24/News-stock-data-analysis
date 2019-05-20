@@ -1,6 +1,5 @@
 # Imports
 
-import os
 import csv
 import spacy
 import pandas as pd
@@ -9,15 +8,15 @@ from spacy import displacy
 from collections import Counter
 
 
-# Performing name entity recognisation (NER) using spacy
-def performNER(data):
+# Performing name entity recognition (NER)
+def perform_ner(data):
     nlp = en_core_web_sm.load()
     doc = nlp(data)
-    labelData = [(X.text, X.label_) for X in doc.ents]
-    return labelData
+    label_data = [(X.text, X.label_) for X in doc.ents]
+    return label_data
 
 
-# Filtering out organisation from entites
+# Filtering out organisation from entities
 def filterData(tups):
     org_ent_data = list(filter(lambda tup: "ORG" in tup, tups))
     entities = []
@@ -31,8 +30,8 @@ def filterData(tups):
 # # Display first 5 rows of your data
 # df.head()
 
-# Fetchs articles from `.csv` and returns an `order dictonary list`
-def getArticles():
+# Fetches articles from `.csv` and returns an `order dictionary list`
+def get_articles():
     with open('Articles.csv', newline='') as csvfile:
         articlesData = csv.DictReader(csvfile)
         articlesList = []
@@ -43,7 +42,7 @@ def getArticles():
 
 def getEntityIdentifiedArticles():
     # Get articles list
-    articles = getArticles()
+    articles = get_articles()
 
     # An array of entity recognised articles.
     entityNamedArticles = []
@@ -56,12 +55,12 @@ def getEntityIdentifiedArticles():
         summary = article["summary"]
 
         # Perform NER
-        labledNERData = performNER(summary)
+        label_ner_data = perform_ner(summary)
 
-        # Filter Organization labled data
-        org_flt_data = filterData(labledNERData)
+        # Filter Organization labeled data
+        org_flt_data = filterData(label_ner_data)
 
-        # Checks if array of entites is empty
+        # Checks if array of entity is empty
         if org_flt_data:
             article["ents"] = ",".join(org_flt_data)
             entityNamedArticles.append(article)
@@ -72,7 +71,7 @@ def getEntityIdentifiedArticles():
 # Main
 
 entityListed_Articles = getEntityIdentifiedArticles()
-# Get Keys to est hearder to csv
+# Get Keys to est header to csv
 keys = entityListed_Articles[0].keys()
 # Create a new csv with entity list
 with open('Articles_ent.csv', 'w+') as output_file:

@@ -81,7 +81,7 @@ def get_articles():
     return articles_list
 
 
-# Peform sentiment analysis only when entity symbol identified.
+# Perform sentiment analysis only when entity symbol identified.
 def perform_analysis():
     # Get articles list
     articles = get_articles()
