@@ -12,15 +12,27 @@ def get_stock(symbol, published_date):
     period1 = 'period1='+timestamp
     period2 = '&period2='+timestamp+'&interval=1d'
     url_query = urljoin(base, symbol+other_query+period1+period2)
-    print(url_query)
+    print(symbol)
     request = requests.get(url_query)
     if request.status_code == 200:
-        return map_stock_data(request)
+        return map_stock_data(request, symbol)
     else:
         print('request: no data return')
 
 
-def map_stock_data(request):
+# Splits the multiple entity names and sets the symbols
+# After getting the symbols join them with ',' and return a string.
+def get_stock_movement(symbols, published_date):
+    entities_symbol = symbols.split(',')
+    stock_data = []
+    for symbol in entities_symbol:
+        stock = get_stock(symbol, published_date)
+        if stock:
+            stock_data.append(stock)
+    return stock_data
+
+
+def map_stock_data(request, symbol):
     data = request.json()
     if data['chart']:
         stock_data = data['chart']
@@ -34,6 +46,7 @@ def map_stock_data(request):
                         stock_quote = map_stock_quote(quote[0])
                         change = percentage_change_in_stock(stock_quote['open'], stock_quote['close'])
                         return {
+                            'symbol': symbol,
                             'open_quote': stock_quote['open'],
                             'close_quote': stock_quote['close'],
                             'percentage_change': change[1],
@@ -84,7 +97,7 @@ def map_stock_quote(quote):
 
 def percentage_change_in_stock(opening_price, closing_price):
     change_in_stocks = ((closing_price - opening_price) / opening_price) * 100
-    print(opening_price, ",", closing_price)
+    # print(opening_price, ",", closing_price)
     stock_movement = ''
     if change_in_stocks < 0:
         stock_movement = 'neg'
@@ -122,20 +135,26 @@ def perform_analysis():
     # Looping articles for sentiment analysis
     for article in articles:
         i = i + 1
-        print(i)
-        stock_data = get_stock(article['symbol'], article['time'])
-        print(stock_data)
-        # if entity_symbols:
-        #     article["symbol"] = entity_symbols
-        #     # Get summary from article
-        #     summary = article["summary"]
-        #     # print(get_article_sentiment(summary))
-        #     article_sentiment = get_article_sentiment(summary)
-        #     article["sentiment"] = article_sentiment[0]
-        #     article["polarity"] = article_sentiment[1]
-        #     article["subjectivity"] = article_sentiment[2]
-        #     analyse_articles.append(article)
-
+        print('\n' ,i)
+        stock_data = get_stock_movement(article['symbol'], article['time'])
+        for data in stock_data:
+            art_new = {}
+            # print(data)
+            if data:
+                print(article)
+                art_new['title'] = article['title']
+                art_new['summary'] = article['summary']
+                art_new['time'] = article['time']
+                art_new['entities'] = article['ents']
+                art_new['sentiment'] = article['sentiment']
+                art_new['polarity'] = article['polarity']
+                art_new['subjectivity'] = article['subjectivity']
+                art_new["symbol"] = data['symbol']
+                art_new["open_quote"] = data['open_quote']
+                art_new["close_quote"] = data['close_quote']
+                art_new["percentage_change"] = data['percentage_change']
+                art_new['movement'] = data['movement']
+                analyse_articles.append(art_new)
     return analyse_articles
 
 
