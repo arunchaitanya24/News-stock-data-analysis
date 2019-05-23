@@ -116,7 +116,7 @@ def convert_date_to_timestamp(date):
 
 # get articles from `.csv` and returns an `order dictionary list`.
 def get_articles():
-    with open('sample_analysed_articles.csv', newline='') as csvfile:
+    with open('data/analysed_art_symbols_sentiment.csv', newline='') as csvfile:
         articles_data = csv.DictReader(csvfile)
         articles_list = []
         for article in articles_data:
@@ -168,4 +168,4 @@ with open('quote_listed_articles.csv', 'w+') as output_file:
     dict_writer.writeheader()
     dict_writer.writerows(analysed_articles)
     print('Success')
-
+    
