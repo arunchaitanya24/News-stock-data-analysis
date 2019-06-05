@@ -1,6 +1,6 @@
 # News-stock-data-analysis
 
-  The aim of this project to coorelate the change in stock price of respective entity, which made news on the same day.
+  The aim of this project to coorelate the change in stock price of respective entity, to news article published on the same day.
   
 ## Web scraping for news articles.
 
