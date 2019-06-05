@@ -25,6 +25,8 @@
 
   After fetching the stock symbols stock quote of the entities are fetched on the day new article is published using yahoo historical finance data.
 
+## Analysis
+
   Data Cleansing and transformation are peformed on the data to acqurie data normalisation for performing correlation analysis on the data. To perform correlation analysis, to establish the relation between change in stock price and news article polarity of the news article three types of correlation methods are employeed as following:
     - Pearson's Correlation
     - Kendall's Correlation
