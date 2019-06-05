@@ -23,6 +23,11 @@
 
 - Getting stock quote: [Example Stock qoute for apple news article published on April 3 2019](https://query2.finance.yahoo.com/v8/finance/chart/AAPL?formatted=true&lang=en-US&region=us&period1=1554210000&period2=1554210000&interval=1d)
 
-After fetching the stock symbols stock quote of the entities are fetched on the day new article is published using yahoo historical finance data.
+  After fetching the stock symbols stock quote of the entities are fetched on the day new article is published using yahoo historical finance data.
 
+  Data Cleansing and transformation are peformed on the data to acqurie data normalisation for performing correlation analysis on the data. To perform correlation analysis, to establish the relation between change in stock price and news article polarity of the news article three types of correlation methods are employeed as following:
+    - Pearson's Correlation
+    - Kendall's Correlation
+    - Spearman's Correlation
+  
 ##### Note: This project is done for academic thesis purpose
