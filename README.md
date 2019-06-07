@@ -1,7 +1,9 @@
 # News-stock-data-analysis
 
   The aim of this project to coorelate the change in stock price of respective entity, to news article published on the same day.
-  
+ 
+ ![alt text](https://github.com/arunchaitanya24/News-stock-data-analysis/blob/develop/project/System_framework.png)
+
 ## Web scraping for news articles.
 
   For getting news articles, REUTERS site is been scraped to getting around 19000 news article data set.
