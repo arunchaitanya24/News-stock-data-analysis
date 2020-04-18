@@ -1,10 +1,10 @@
 # News-stock-data-analysis
 
   The aim of this project to coorelate the change in stock price of respective entity, to news article published on the same day.
- 
+  This  Minor thesis is published in ADMA 2019 under short paper category [Article Link](https://link.springer.com/chapter/10.1007/978-3-030-35231-8_24)
+
  ![alt text](https://github.com/arunchaitanya24/News-stock-data-analysis/blob/develop/project/System_framework.png)
 
-Minor thesis is published in ADMA 2019 under short paper category [Article Link](https://link.springer.com/chapter/10.1007/978-3-030-35231-8_24)
 ## Web scraping for news articles.
 
   For getting news articles, REUTERS site is been scraped to getting around 19000 news article data set.
